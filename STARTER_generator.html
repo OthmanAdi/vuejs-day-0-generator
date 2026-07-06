@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Der Hintergrund-Generator — Starter</title>
+<style>
+  /* ─── UI-Grundgerüst. Dunkel, ein Akzent. Eigene Farbwelt: gern — aber erst ab Etappe 1. ─── */
+  :root{
+    --bg:#0a0f0d; --surface:#111815; --border:rgba(255,255,255,.08);
+    --text:#e8f0ec; --muted:#9db3a8; --brand:#42b883;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);
+    font-family:ui-sans-serif,system-ui,"Segoe UI",sans-serif;color:var(--text)}
+  canvas{display:block;position:fixed;inset:0}
+
+  /* Das Bedienpanel für Etappe 1 und 4. Es ist absichtlich fast leer —
+     Regler und Knöpfe baust DU, wenn die jeweilige Etappe sie braucht. */
+  .panel{
+    position:fixed;left:16px;bottom:16px;z-index:2;
+    background:color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--border);border-radius:.75rem;
+    padding:14px 16px;width:min(340px, calc(100vw - 32px));
+  }
+  .panel h1{font-size:13px;margin:0 0 2px;letter-spacing:.02em}
+  .panel p{font-size:11px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+
+<!-- ═══ ETAPPE 0 — DAS SKELETT (fertig gebaut, läuft per Doppelklick) ═══
+     Die Importmap ist auf r184 gepinnt — dieselbe Version wie euer ganzer Juni.
+     Die drei CDN-Zeilen sind das Einzige, was Internet braucht. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/"
+  }
+}
+</script>
+
+<div class="panel">
+  <h1>Der Hintergrund-Generator</h1>
+  <p>Starter — Etappe 0 läuft. Deine Regler und Knöpfe entstehen ab Etappe 1 hier im Panel.</p>
+  <!-- ETAPPE 1 dockt hier an: ein Button "Zufall".
+       ETAPPE 4 dockt hier an: drei beschriftete Slider + "Fundstück speichern".
+       Muster für einen Slider-Block findest du in AUFGABE.md und im Beispiel auf der Website. -->
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+
+// ─── ETAPPE 0 — Bühne: Vollbild-Fläche, orthografisch, unbewegt. ───
+// Das Rechteck IST der Bildschirm. Es gibt nichts zu umkreisen, darum keine OrbitControls.
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // DPR-Deckel aus dem Juni
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+// ─── Die Uniforms des Tages. uTime und uResolution sind verdrahtet. ───
+// ETAPPE 1 ergänzt hier: uA, uB, uC, uD (die vier Palette-Parameter als Vector3).
+// ETAPPE 2 ergänzt hier: uOktaven, uZoom, uTempo.
+// ETAPPE 3 ergänzt hier: uWarp (ersetzt die feste 4.0) — und später die würfelbaren Offsets.
+const uniforms = {
+  uTime:       { value: 0 },
+  uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+};
+
+const material = new THREE.ShaderMaterial({
+  uniforms,
+  // Der Vertex-Shader reicht nur durch: PlaneGeometry(2,2) deckt den Clip-Raum exakt ab.
+  vertexShader: /* glsl */`
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position.xy, 0.0, 1.0);
+    }
+  `,
+  fragmentShader: /* glsl */`
+    precision highp float;
+    varying vec2 vUv;
+    uniform float uTime;
+    uniform vec2  uResolution;
+
+    // ─── ETAPPE 1 dockt hier an: ───
+    // die palette()-Funktion aus AUFGABE.md, Baustein 1 (vier vec3-Parameter, eine cos-Zeile).
+    // Frage, die dich durch die Etappe trägt: WAS ist dein t — und was formt es in Farbe um?
+
+    // ─── ETAPPE 2 dockt hier an: ───
+    // dein Value-Noise + fBM aus der Juni-Woche-3 (Hash -> vnoise -> Oktaven-Schleife).
+    // Referenz, falls verblasst: Book of Shaders Kapitel 13 — oder das Beispiel auf der Website.
+
+    // ─── ETAPPE 3 dockt hier an: ───
+    // die pattern(p, q, r)-Funktion aus Baustein 2 — zwei Warp-Ebenen,
+    // und q/r fließen in die Farbe. Der Moment, in dem das Bild Schichten bekommt.
+
+    void main() {
+      // ETAPPE-0-BEWEIS: der UV-Verlauf. Rot wächst nach rechts, Grün nach oben.
+      // Wenn du das siehst, steht die Bühne — und dieser Block wird in Etappe 1 ERSETZT.
+      gl_FragColor = vec4(vUv, 0.0, 1.0);
+    }
+  `,
+});
+
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
+
+// ─── Loop + Resize. Bleibt so — hier musst du heute nichts anfassen. ───
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  uniforms.uTime.value = clock.getElapsedTime();
+  // ETAPPE-4-HINWEIS: wenn dein Tempo-Regler das Bild beim Ziehen springen lässt,
+  // akkumuliere Phase statt Zeit zu skalieren — das Beispiel zeigt wie.
+  renderer.render(scene, camera);
+});
+
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+});
+
+/* ═══ ETAPPE 4 — DER GENERATOR-MOMENT (JS-Seite) ═══
+   Hier unten entsteht die Verdrahtung: Slider-Events -> Uniform-Werte,
+   der Zufall-Knopf (würfelt uD, uC, Offsets, Zoom — uA/uB bleiben dein Marken-Pol!),
+   und "Fundstück speichern" (Parameter als JSON in Konsole + Zwischenablage).
+
+   ═══ DEINE DREI FUNDSTÜCKE (Abgabe-Format — am Ende hier eintragen): ═══
+   FUNDSTÜCK: { ... }
+   FUNDSTÜCK: { ... }
+   FUNDSTÜCK: { ... }
+*/
+</script>
+</body>
+</html>
