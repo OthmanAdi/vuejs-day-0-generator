@@ -23,6 +23,21 @@ Die Reihenfolge der drei Tage ist kein Zufall, sondern das Bauprinzip des Monats
 
 ---
 
+## Die Landkarte — wo Vue steht
+
+Vier Namen tauchen in jeder Frontend-Diskussion nebeneinander auf, und in Bewerbungsgesprächen wird erwartet, dass ihr sie sortieren könnt. Hier die Sortierung — vor dem ersten Unterrichtstag, damit die Einordnung sitzt:
+
+| Werkzeug | Was es ist | Wer dahintersteht | Typischer Einsatz | Für euch heißt das |
+|---|---|---|---|---|
+| **React** | Bibliothek für UI-Komponenten, Markup als JSX im JavaScript | Meta | Konzern-Frontends, große Teams; das größte Ökosystem | Der größte Markt — und die längste Schlange am Junior-Einstieg |
+| **Next.js** | Fullstack-Framework **auf** React: Server-Rendering, Routing, API-Schicht | Vercel | React-Projekte, die mehr als eine Seite sind; im Markt fast immer im Doppelpack mit React | Kein Konkurrent zu Vue, sondern Reacts Überbau — lernt man nach React, nicht statt |
+| **Vue** ← unser Monat | Framework mit eigenem Denkmodell: HTML-Templates + Reaktivität, offizieller Router und offizielles State-Management | Unabhängiges Team um Evan You, über Sponsoren finanziert | Produkt-Frontends von GitLab bis n8n; in Deutschland stark bei Agenturen und Mittelstand | Stabile Nummer zwei — mit deutlich dünnerer Junior-Konkurrenz |
+| **Astro** | Framework für Inhalts-Seiten: liefert standardmäßig kein clientseitiges JavaScript aus, Interaktivität kommt als „Inseln" dazu | Unabhängig (Astro-Team) | Blogs, Dokumentationen, Marketing-Seiten; kann Vue- und React-Komponenten einbetten | Das Spezialwerkzeug für Content — kein App-Framework, aber gut zu kennen |
+
+**Warum Nummer zwei ein guter Platz ist:** React lädt auf npm rund zehnmal öfter als Vue (Momentaufnahme Anfang Juli 2026: ~604 Millionen gegen ~56 Millionen Downloads in 30 Tagen) — der größte Markt, aber am Junior-Einstieg auch der gesättigtste. Vue hält seit Jahren Platz zwei, mit einem eigenen, stabilen Stellenmarkt in Deutschland (StepStone 541 und Indeed 500 offene Treffer, Anfang Juli, schwankt täglich) und dem am besten dokumentierten Einstieg der Branche. Und das Entscheidende für diesen Monat: wer Vues Reaktivität einmal von Hand gebaut hat, liest danach auch React-Code ohne Schrecken — das Denkmodell transferiert, die Vokabeln unterscheiden sich. Nummer zwei heißt hier: echter Markt, weniger Gedränge, bester Lernpfad.
+
+---
+
 ## MITTWOCH 08.07 — Der Motor
 
 **Was passiert:** Wir starten nicht mit einer Vue-Tour. Wir starten mit einem Problem — eurem eigenen vom Wochenende: acht Button-Zustände, vierzig Zeilen Klassen-Schalterei, und vier Code-Stellen, die an denselben Zustand denken müssen. Dann bauen wir die Lösung **von Hand**: das Herzstück eines Frontend-Frameworks, in einer einzigen HTML-Datei, mit einer Handvoll JavaScript-Werkzeugen, die ihr alle längst besitzt — welche genau, bleibt bis Mittwoch früh offen. Erst wenn euer eigener Motor läuft, importieren wir den echten. Und dann vergleichen wir: euer Code und der Vue-Quellcode — fast dieselben Zeilen.
