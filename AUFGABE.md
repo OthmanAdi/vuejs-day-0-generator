@@ -9,7 +9,7 @@
 |---|---|
 | Tag | Dienstag 07.07.2026 — Selbststudiumstag, kein Unterricht. Der Unterricht startet Mittwoch 09:00 |
 | Kern-Auftrag | Dieser Generator, ~2,5 bis 3 Stunden, solo, in eurem Tempo |
-| Danach | Die Wochenvorschau lesen (auf der Website) + die Vue-Rampe (~1,5 Stunden, eigenes Dokument) |
+| Danach | Die Wochenvorschau lesen (auf der Website, ~20 Min) + die Vue-Rampe (~1,5–2 Stunden, eigenes Dokument) |
 | Stack | Three.js r184 per CDN-Importmap, `ShaderMaterial` + GLSL — euer Juni-Werkzeug |
 | Starter | Fertiges Skelett zum Losbauen: Repo oben klonen ODER `starter.html` von der Website speichern |
 | Ziel | Kein Bild bauen. Eine **Maschine** bauen, die Bilder baut |
@@ -25,9 +25,9 @@ Euer Klient vom Wochenende — ATEM, NORD oder TON — meldet sich noch einmal, 
 
 Das ist ein echtes Genre. Studios liefern so etwas als **Generator**: ein Stück Software mit einem Knopf. Jeder Klick ein neues Bild, jedes Bild im Marken-Pol des Klienten, keins wiederholt sich. Schaut euch drei Referenzen aus der Industrie an, bevor ihr baut:
 
-- **shadergradient.co** — bewegte Shader-Verläufe als fertiges Produkt für Framer/Figma. Langsam, weich, palettengetrieben.
-- **unicorn.studio** — WebGL-Effekte über Regler statt Code. Merkt euch die Bedienung: Slider bewegen, sofort sehen. Genau dieses Gefühl baut ihr heute selbst.
-- **gradient.style** von Adam Argyle — dort entsteht Schönheit fast nur aus Farbwahl. Kein Zufall, sondern die Lektion des Tages.
+- **https://shadergradient.co** — bewegte Shader-Verläufe als fertiges Produkt für Framer/Figma. Langsam, weich, palettengetrieben.
+- **https://unicorn.studio** — WebGL-Effekte über Regler statt Code. Merkt euch die Bedienung: Slider bewegen, sofort sehen. Genau dieses Gefühl baut ihr heute selbst.
+- **https://gradient.style** von Adam Argyle — dort entsteht Schönheit fast nur aus Farbwahl. Kein Zufall, sondern die Lektion des Tages.
 
 **Worum es heute NICHT geht:** rotierende Objekte, Sternenfelder, Partikelkugeln. Die schönsten Generatoren dieser Gattung sind flache, langsame Farbfelder — die Kunst liegt in der Palette und in der Bewegung des Musters, nicht in 3D-Geometrie. Ihr habt einen Monat lang Maschinen mit zweihunderttausend Teilen gebaut. Heute ist das Gegenteil dran: ein Vollbild-Rechteck, ein Fragment-Shader, und trotzdem ein Ergebnis, das aussieht wie ein Poster.
 
@@ -42,11 +42,19 @@ cd vuejs-day-0-generator
 ```
 Dann `STARTER_generator.html` per Doppelklick im Browser öffnen — du siehst den UV-Verlauf von Etappe 0, sofort, ohne Server. Diese Datei ist dein Arbeitsplatz für heute; dieser Auftrag liegt als `AUFGABE.md` gleich daneben.
 
-**Weg B — nur die Datei:** Auf https://sleek-vision-8ezb.here.now/starter.html gehen → Rechtsklick → „Seite speichern unter" → `generator.html`. Gleicher Inhalt wie im Repo, ohne git.
+**Weg B — nur die Datei:** Auf https://sleek-vision-8ezb.here.now/starter.html gehen → Rechtsklick → „Seite speichern unter" → `generator.html`. Beim Speichern das Format „Nur HTML" wählen, nicht „Webseite, komplett" — sonst legt der Browser einen überflüssigen Ordner daneben. Gleicher Inhalt wie im Repo, ohne git.
 
 **Weg C — von null:** Leere Datei, alles selbst tippen. Die Importmap und das Skelett stehen in Etappe 0 unten. Der stolzeste Weg, kostet ~15 Minuten mehr.
 
-Egal welcher Weg: es gibt **keinen Build, keinen Server, kein npm**. Eine HTML-Datei, Doppelklick, läuft. Nur die drei CDN-Zeilen der Importmap brauchen einmal Internet.
+Egal welcher Weg: es gibt **keinen Build, keinen Server, kein npm**. Eine HTML-Datei, Doppelklick, läuft. Nur die zwei CDN-Zeilen der Importmap brauchen einmal Internet.
+
+## Falls es klemmt
+
+Drei Störungen decken fast alles ab, was heute passieren kann:
+
+1. **Schwarzer Bildschirm + rote Zeile in der Konsole (F12):** Die Zeile nennt fast immer eine Zeilennummer im Shader. Vergleicht genau diese Stelle mit dem Code-Block aus dem passenden Baustein — bei GLSL ist es in neun von zehn Fällen ein fehlendes Semikolon oder ein `float`/`int`-Mix (`1` statt `1.0`).
+2. **Schwarzer Bildschirm, Konsole still:** Dann hat vermutlich der CDN-Import nicht geladen. Netzwerk-Tab öffnen (F12 → Network, Seite neu laden) — steht dort eine rote jsdelivr-Zeile, ist es die Verbindung: anderes Netz probieren oder kurz warten, die Datei selbst ist in Ordnung.
+3. **Nichts davon hilft:** Screenshot von Konsole + Netzwerk-Tab in den Zoom-Chat, kurz beschreiben, was ihr zuletzt geändert habt. Ich lese tagsüber mit — nicht bis Mittwoch alleine festsitzen.
 
 ---
 
@@ -124,6 +132,8 @@ Für die fBM-Auffrischung, falls Woche 3 verblasst ist: `https://iquilezles.org/
 
 Ihr kennt das Format vom Wochenende: Etappen mit eigenem Ergebnis, SELBST-CHECK am Ende jeder Etappe. Die Zeiten tragen die übliche Marge — länger brauchen ist normal, nicht Rückstand. Wer mit dem Starter arbeitet: Etappe 0 ist dort schon gebaut, die Kommentare im Starter zeigen, wo jede weitere Etappe andockt.
 
+Ein Zeit-Anker für den Tag: Wer nach etwa drei Stunden noch nicht bei Etappe 4 ist, speichert das beste Zwischenbild als Fundstück und geht weiter zur Wochenvorschau und zur Rampe — die zählen für morgen mehr als ein fertiges Stretch-Ziel. Der Generator lässt sich jederzeit weiterdrehen.
+
 ### Etappe 0 — Das Skelett (~15 Min · im Starter FERTIG)
 
 Eine Datei, `generator.html`. Die Importmap ist auf r184 gepinnt, dieselbe Version wie euer ganzer Juni:
@@ -171,7 +181,7 @@ Jetzt wird aus dem Shader das Produkt:
 
 1. **Der Zufall-Knopf würfelt alles:** Palette-Phase `uD`, Farbfrequenz `uC`, die Warp-Offset-Konstanten (ersetzt die IQ-Zahlen durch gewürfelte Uniforms `uOff1`…`uOff3`) und den Zoom. Ein Klick = ein komplett neues Werk im Marken-Pol.
 2. **Drei Slider:** Tempo, Oktaven, Warp-Stärke. Beschriftet, mit sichtbarem Wert.
-3. **Fundstück speichern:** ein Knopf, der die aktuellen Parameter als JSON in die Konsole schreibt (und per `navigator.clipboard.writeText` kopiert). Findet drei Bilder, die ihr Mittwoch zeigen wollt, und legt ihre Parameter als Kommentar ans Ende eurer Datei.
+3. **Fundstück speichern:** ein Knopf, der die aktuellen Parameter als JSON in die Konsole schreibt (und per `navigator.clipboard.writeText` kopiert — falls die Zwischenablage bei einer lokalen Datei still verweigert, kein Drama: den Wert einfach aus der Konsole kopieren). Findet drei Bilder, die ihr Mittwoch zeigen wollt, und legt ihre Parameter als Kommentar ans Ende eurer Datei.
 
 **SELBST-CHECK:** Ein fremder Mensch könnte mit eurem Generator in 60 Sekunden ein schönes Bild finden, ohne eine Zeile Code zu sehen. Das ist die Messlatte — Werkzeug, nicht Demo.
 
@@ -188,7 +198,7 @@ Auf der Website liegt `beispiel.html` — eine vollständige Produktion aller f�
 
 ## Der Rest des Tages
 
-Nach dem Generator, mit frischem Kopf: die **Wochenvorschau** auf der Website lesen (was Mittwoch bis Freitag passiert, mit fertigen Beispielen zum Anschauen) und danach die **Vue-Rampe** durcharbeiten (eigenes Dokument, ~1,5 Stunden: eine Geschichte, ein Marktblick, und eine Probe-Installation, damit Mittwoch nichts klemmt).
+Nach dem Generator, mit frischem Kopf: die **Wochenvorschau** auf der Website lesen (was Mittwoch bis Freitag passiert, mit fertigen Beispielen zum Anschauen) und danach die **Vue-Rampe** durcharbeiten (eigenes Dokument, ~1,5–2 Stunden: eine Geschichte, ein Marktblick, und eine Probe-Installation, damit Mittwoch nichts klemmt).
 
 ## Abgabe
 

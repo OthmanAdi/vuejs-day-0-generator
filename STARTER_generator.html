@@ -32,7 +32,7 @@
 
 <!-- ═══ ETAPPE 0 — DAS SKELETT (fertig gebaut, läuft per Doppelklick) ═══
      Die Importmap ist auf r184 gepinnt — dieselbe Version wie euer ganzer Juni.
-     Die drei CDN-Zeilen sind das Einzige, was Internet braucht. -->
+     Die zwei CDN-Zeilen sind das Einzige, was Internet braucht. -->
 <script type="importmap">
 {
   "imports": {
@@ -42,12 +42,19 @@
 }
 </script>
 
+<a href="https://sleek-vision-8ezb.here.now/" style="position:fixed;top:14px;left:14px;z-index:3;
+   font:600 11px ui-sans-serif,system-ui;letter-spacing:.05em;color:var(--muted);text-decoration:none;
+   border:1px solid var(--border);border-radius:999px;padding:6px 12px;background:color-mix(in srgb, var(--surface) 88%, transparent)"
+   onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--brand)'"
+   onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">← Auftrag</a>
+
 <div class="panel">
   <h1>Der Hintergrund-Generator</h1>
   <p>Starter — Etappe 0 läuft. Deine Regler und Knöpfe entstehen ab Etappe 1 hier im Panel.</p>
   <!-- ETAPPE 1 dockt hier an: ein Button "Zufall".
        ETAPPE 4 dockt hier an: drei beschriftete Slider + "Fundstück speichern".
-       Muster für einen Slider-Block findest du in AUFGABE.md und im Beispiel auf der Website. -->
+       Muster für einen Slider-Block: im Auftrag auf der Website (Etappe 4), im Beispiel
+       (beispiel.html) — und wer das Repo hat, findet beides auch in AUFGABE.md daneben. -->
 </div>
 
 <script type="module">

@@ -11,7 +11,7 @@ git clone https://github.com/OthmanAdi/vuejs-day-0-generator.git
 cd vuejs-day-0-generator
 ```
 
-Dann `STARTER_generator.html` **per Doppelklick** im Browser öffnen. Du siehst einen Verlauf von Rot nach Grün — das ist Etappe 0, sie läuft schon. Kein Server, kein npm; nur die drei CDN-Zeilen der Importmap brauchen einmal Internet.
+Dann `STARTER_generator.html` **per Doppelklick** im Browser öffnen. Du siehst einen Verlauf von Rot nach Grün — das ist Etappe 0, sie läuft schon. Kein Server, kein npm; nur die zwei CDN-Zeilen der Importmap brauchen einmal Internet.
 
 ## Was hier liegt
 
@@ -19,6 +19,7 @@ Dann `STARTER_generator.html` **per Doppelklick** im Browser öffnen. Du siehst 
 | --- | --- |
 | `STARTER_generator.html` | Dein Arbeitsplatz. Etappe 0 fertig; die Kommentare zeigen, wo Etappe 1–4 andocken |
 | `AUFGABE.md` | Der komplette Auftrag: die zwei Bausteine (Cosinus-Palette, Domain Warping), die 5 Etappen mit SELBST-CHECKs, die Abgabe |
+| `WOCHENVORSCHAU.md` | Was Mittwoch bis Freitag passiert — mit fertigen Beispielen und Lese-Regalen (auch als Webseite auf der Site) |
 
 ## Der Weg
 
